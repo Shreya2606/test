@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Prediction</h1>
+        <form id="predictionForm">
+            <!-- Input fields for data prediction -->
+            <label for="input1">Input 1:</label>
+            <input type="text" id="input1" name="input1"><br><br>
+            
+            <label for="input2">Input 2:</label>
+            <input type="text" id="input2" name="input2"><br><br>
+            
+            <!-- Add more input fields as needed -->
+            
+            <!-- Button to trigger prediction -->
+            <button type="submit" id="predictButton">Predict</button>
+        </form>
+        
+        <!-- Display prediction result -->
+        <div id="predictionResult"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#predictionForm").on("submit", function(event) {
+                // Prevent default form submission
+                event.preventDefault();
+                
+                // Get input values
+                var input1 = $("#input1").val();
+                var input2 = $("#input2").val();
+                // Add more input variables as needed
+                
+                // Perform prediction
+                $.ajax({
+                    type: "POST",
+                    url: "/predict",
+                    data: {
+                        input1: input1,
+                        input2: input2,
+                        // Add more input variables as needed
+                    },
+                    success: function(response) {
+                        // Display prediction result
+                        $("#predictionResult").html("Prediction Result: " + response.prediction);
+                    },
+                    error: function(xhr, status, error) {
+                        // Display error message if prediction fails
+                        $("#predictionResult").html("Prediction Error: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
